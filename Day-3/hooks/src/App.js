@@ -17,8 +17,6 @@ function App() {
   ,[count]);
 
 
-  
-
   return (
     <div className="App">
       <header className="App-header">
