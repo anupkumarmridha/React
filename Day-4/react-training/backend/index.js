@@ -41,7 +41,7 @@ app.put('/', (req, res) => {
   const todo = req.body?.todo;
   const todoId = todo?.id;
 
-  const index = todos.find((todo) => todo.id === todoId);
+  const index = todos.findIndex((todo) => todo.id === todoId);
   if (index !== -1) todos.splice(index, 1, todo);
 
   return res.status(200).send(todos);

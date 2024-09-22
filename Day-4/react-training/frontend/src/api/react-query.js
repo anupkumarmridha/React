@@ -1,4 +1,4 @@
-import { createTodo, getTodos } from './axios';
+import { createTodo, getTodos, editTodo, deleteTodo } from './axios';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 export const useGetTodos = () => {
@@ -22,6 +22,42 @@ export const useCreateTodos = () => {
     mutationFn: async (todo) => {
       try {
         const data = await createTodo(todo);
+        return data;
+      } catch (err) {
+        console.log({ err });
+        throw new Error(err.response.data);
+      }
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['Todo'] });
+    },
+  });
+};
+
+export const useUpdateTodos = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async (todo) => {
+      try {
+        const data = await editTodo(todo);
+        return data;
+      } catch (err) {
+        console.log({ err });
+        throw new Error(err.response.data);
+      }
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['Todo'] });
+    },
+  });
+}
+
+export const useDeleteTodos = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async (id) => {
+      try {
+        const data = await deleteTodo(id);
         return data;
       } catch (err) {
         console.log({ err });

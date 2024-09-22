@@ -1,4 +1,8 @@
-export const Todo = ({ todo, deleteExistingTodo, editExistingTodo }) => {
+import {useUpdateTodos, useDeleteTodos} from '../api/react-query';
+
+export const Todo = ({ todo }) => {
+  const {mutate: editExistingTodo} = useUpdateTodos();
+  const {mutate: deleteExistingTodo} = useDeleteTodos();
   return (
     <div className="flex items-center">
       <input
