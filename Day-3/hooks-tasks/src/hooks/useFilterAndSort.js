@@ -1,9 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useMemo } from 'react';
 
 export const useFilterAndSort = (items, searchTerm, sortKey, sortDirection) => {
-    const [filteredItems, setFilteredItems] = useState(items);
-
-    useEffect(() => {
+    const filteredAndSortedItems = useMemo(() => {
         let sortedItems = [...items];
 
         // Sorting logic
@@ -25,8 +23,8 @@ export const useFilterAndSort = (items, searchTerm, sortKey, sortDirection) => {
             );
         }
 
-        setFilteredItems(sortedItems);
+        return sortedItems;
     }, [items, searchTerm, sortKey, sortDirection]);
 
-    return filteredItems;
+    return filteredAndSortedItems;
 };

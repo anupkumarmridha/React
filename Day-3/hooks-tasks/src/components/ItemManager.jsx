@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useCallback } from 'react';
 import AddItem from './ui/AddItem';
 import SearchInput from './ui/SearchInput';
 import { useFilterAndSort } from '../hooks/useFilterAndSort';
@@ -15,14 +15,14 @@ const ItemManager = () => {
     const filteredAndSortedItems = useFilterAndSort(items, searchTerm, sortKey, sortDirection);
 
     // Handle Add Item
-    const handleAddItem = (item) => {
+    const handleAddItem = useCallback((item) => {
         dispatch({ type: 'ADD_ITEM', payload: item });
-    };
+    },[dispatch]);
 
     // Handle Remove Item
-    const handleRemoveItem = (id) => {
+    const handleRemoveItem = useCallback((id) => {
         dispatch({ type: 'REMOVE_ITEM', payload: id });
-    };
+    }, [dispatch]);
 
     // Handle sorting by column
     const handleSort = (key) => {
